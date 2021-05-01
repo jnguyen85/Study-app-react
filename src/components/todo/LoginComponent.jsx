@@ -6,8 +6,8 @@ class LoginComponent extends Component {
     constructor(props) {
         super()
         this.state = {
-            username: 'John',
-            password: 'dummy',
+            username: 'user',
+            password: 'password',
             hasLoginFailed: false,
             showSuccessMessage: false,
         }
@@ -27,20 +27,28 @@ class LoginComponent extends Component {
     }
 
     loginClicked(e) {
-        console.log(`{this.state.username} {this.state.password}`)
-        if (this.state.username==='John' && this.state.password==='dummy') {
-            AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password)
-            this.props.history.push(`/welcome/${this.state.username}`)
-        }
-        else {
-            this.setState({
-                showSuccessMessage: false
+        // console.log(`{this.state.username} {this.state.password}`)
+        // if (this.state.username==='John' && this.state.password==='dummy') {
+        //     AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password)
+        //     this.props.history.push(`/welcome/${this.state.username}`)
+        // }
+        // else {
+        //     this.setState({
+        //         showSuccessMessage: false
+        //     })
+        //     this.setState({
+        //         hasLoginFailed: true
+        //     })
+        // }
+        AuthenticationService.executeBasicAuthenticationService(this.state.username, this.state.password)
+            .then(() => {
+                AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password)
+                    this.props.history.push(`/welcome/${this.state.username}`)
+                
+            }).catch(() => {
+                this.setState({showSuccessMessage: false})
+                this.setState({hasLoginFailed: true})
             })
-            this.setState({
-                hasLoginFailed: true
-            })
-        }
-
     }
 
     render() {

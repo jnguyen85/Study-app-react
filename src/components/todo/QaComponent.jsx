@@ -7,11 +7,11 @@ class TodoComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            Qid: 1,
+            Qid: this.props.match.params.id,
             user_id: 0,
-            question: 'no',
-            answer: 'no',
-            category: 'no'
+            question: '',
+            answer: '',
+            category: ''
             
         }
         this.onSubmit = this.onSubmit.bind(this)
@@ -19,6 +19,9 @@ class TodoComponent extends Component {
     }
 
     componentDidMount() {
+        if (this.state.Qid===-1) {
+            return 
+        }
         let username = AuthenticationService.getLoggedInUser()
         QADataService.retrieveQa(username, this.state.Qid)
             .then(response => this.setState({
@@ -54,17 +57,41 @@ class TodoComponent extends Component {
     }
 
     onSubmit(values) {
-        console.log(values)
+        console.log("save button press with...Qid=" + this.state.Qid)
+        console.log("state.Qid=" + this.state.Qid)
+        console.log("values.Qid=" + values.Qid)
+
+        let username = AuthenticationService.getLoggedInUser()
+
+        let qa = {
+            Qid: this.state.Qid,
+            user_id: values.user_id,
+            question: values.question,
+            answer: values.answer,
+            category: values.category
+        }
+        
+        console.log("QA send to update/insert ", qa)
+        console.log("this.state.Qid=" + this.state.Qid)
+        if (this.state.Qid === -1) {
+            QADataService.createQA(username, qa)
+        } else {
+            QADataService.updateQA(username, this.state.Qid, qa)
+                .then(() => this.props.history.push('/studyapp'))
+        }
+        
+        console.log("done w/ onSubmit " + values)
     }
 
     render() {
 
         let {Qid, user_id, question, answer, category} = this.state
+
         console.log(question, answer)
 
         return (
             <div>
-                <h1>Edit Flash Card</h1>
+                <h1>Flash Card</h1>
                 <div className="container">
                    <Formik 
                         initialValues={{Qid, user_id, category, question, answer}}
@@ -92,7 +119,7 @@ class TodoComponent extends Component {
                                     <label>Answer</label>
                                     <Field className="form-control" name="answer" />
                                 </fieldset>
-                                <button type="submit" className="btn btn-success">Save</button>
+                                <button className="btn btn-success" type="submit">Save</button>
                             </Form>
                         )
                     }
