@@ -3,31 +3,44 @@ import axios from 'axios'
 class QADataService {
 
     retrieveAllQA(name) {
-        return axios.get(`http://localhost:8080/studyapp/users/1/qa`)
+        console.log("QQADataService.retrieveAllQA username=" + name)
+
+        return axios.get(`http://localhost:8080/studyapp/users/${name}/qa`)
     }
 
 
-    retrieveQa(user_id, qa_id) {
-        return axios.get(`http://localhost:8080/studyapp/users/1/qa/${qa_id}`)
+    retrieveQa(username, qa_id) {
+        console.log(`QADataService.retrieveQs username=${username}`)
+                                                        
+        return axios.get(`http://localhost:8080/studyapp/users/${username}/qa/${qa_id}`)
     }
 
-    deleteQA(user_id, qa_id) {   
-        console.log("inside deleteQA qa_id=" + qa_id)
-        console.log(`http://localhost:8080/studyapp/users/1/qa/${qa_id}`)
+    deleteQA(username, qa_id) {   
+        console.log("QADataService.deleteQA qa_id=" + qa_id)
 
-        return axios.delete(`http://localhost:8080/studyapp/users/1/qa/${qa_id}`)
+        return axios.delete(`http://localhost:8080/studyapp/users/${username}/qa/${qa_id}`)
     }
 
 
-    updateQA(user_id, qa_id, qa) {   
-        console.log("inside updateQA qa_id=" + qa.Qid + "qa.Qid=" + qa.Qid) 
-        console.log("url to api=" + `http://localhost:8080/studyapp/users/1/qa/${qa_id}`)                   
-        return axios.put(`http://localhost:8080/studyapp/users/1/qa/${qa_id}`, qa)
+    updateQA(username, Qid, qa) {   
+
+        console.log(`http://localhost:8080/studyapp/users/${username}/qa/${Qid}`) 
+
+        return axios.put(`http://localhost:8080/studyapp/users/${username}/qa/${Qid}`, qa)
     }
 
     createQA(name, qa) {
-        console.log("inside createQa qa:" + qa)
-        return axios.post(`http://localhost:8080/studyapp/users/1/qa/`, qa)
+
+        console.log("QADataService.createQa qa:" + qa)
+
+        return axios.post(`http://localhost:8080/studyapp/users/${qa.user_email}/qa/`, qa)
+    }
+
+
+    registerUser(user) {
+        console.log("QADataService.registerUser user:" + user.user_email)
+        return axios.post(`http://localhost:8080/studyapp/users/register/api/user`, user)
+
     }
     
 }

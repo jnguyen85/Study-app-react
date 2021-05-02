@@ -2,32 +2,35 @@ import React, {Component} from 'react'
 import {Formik, Form, Field, ErrorMessage} from 'formik'
 import QADataService from '../../api/study-app/QADataService'
 import AuthenticationService from './AuthenticationService'
+import { Link } from 'react-router-dom'
 
 class TodoComponent extends Component {
     constructor(props) {
         super(props)
-        console.log("param id is: " + this.props.match.params.id)
+        console.log("QaComponent param id is: " + this.props.match.params.id)
         this.state = {
             Qid: this.props.match.params.id,
-            user_id: 0,
+            user_email: AuthenticationService.getLoggedInUser(),
             question: '',
             answer: '',
             category: ''
-            
         }
         this.onSubmit = this.onSubmit.bind(this)
         this.validate = this.validate.bind(this)
     }
 
     componentDidMount() {
-        if (this.state.Qid===-1) {
+        console.log('TodoComponent.componentDidMount')
+        if (this.state.Qid === -1) {
+            console.log("go here when this.state.id = -1")
             return 
         }
+        console.log("Should not being doing this when this.state.Qid = -1")
         let username = AuthenticationService.getLoggedInUser()
         QADataService.retrieveQa(username, this.state.Qid)
             .then(response => this.setState({
                 Qid: response.data.qid,
-                user_id: response.data.user_id,
+                user_email: response.data.user_email,
                 question: response.data.question,
                 answer: response.data.answer,
                 category: response.data.category
@@ -58,23 +61,25 @@ class TodoComponent extends Component {
     }
 
     onSubmit(values) {
-        console.log("save button press with...Qid=" + this.state.Qid)
-        console.log("state.Qid=" + this.state.Qid)
-        console.log("values.Qid=" + values.Qid)
+        console.log("TodoComponent.onSubmit() is called: ")
 
         let username = AuthenticationService.getLoggedInUser()
-
-        let qa = {
+        
+        const qa = {
             Qid: this.props.match.params.id,
-            user_id: values.user_id,
+            user_email: username,
             question: values.question,
             answer: values.answer,
             category: values.category
         }
+
+        console.log("TodoComponent.onSubmit qa.Qid=" + qa.Qid)
+        console.log("TodoComponent.onSubmit qa.user_email=" + qa.user_email)
+        console.log("TodoComponent.onSubmit qa.question=" + qa.question)
+        console.log("TodoComponent.onSubmit qa.answer=" + qa.answer)
+        console.log("odoComponent.onSubmit qa.category=" + qa.category)
         
-        console.log("QA send to update/insert ", qa)
-        console.log("this.state.Qid=" + this.props.match.params.id)
-        if (this.props.match.params.id == -1) {
+        if (parseInt(qa.Qid) === -1) {
             QADataService.createQA(username, qa)
                 .then(() => this.props.history.push('/studyapp'))
         } else {
@@ -87,16 +92,16 @@ class TodoComponent extends Component {
 
     render() {
 
-        let {Qid, user_id, question, answer, category} = this.state
+        let {Qid, user_email, question, answer, category} = this.state
 
-        console.log(question, answer)
+        console.log(`QAComponent render() ----> Qid=${Qid} user_email=${user_email} question=${question} answer=${answer} category=${category}`)
 
         return (
-            <div>
+            <div className="container">
                 <h1>Flash Card</h1>
                 <div className="container">
                    <Formik 
-                        initialValues={{Qid, user_id, category, question, answer}}
+                        initialValues={{Qid, user_email, category, question, answer}}
                         onSubmit={this.onSubmit}
                         validateOnChange={false}
                         validateOnBlur={false}
@@ -122,6 +127,8 @@ class TodoComponent extends Component {
                                     <Field className="form-control" name="answer" />
                                 </fieldset>
                                 <button className="btn btn-success" type="submit">Save</button>
+                                <span style={{width:100}}> </span>
+                                <Link className="btn btn-success" to="/studyapp">Cancel</Link>
                             </Form>
                         )
                     }

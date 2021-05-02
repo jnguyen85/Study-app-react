@@ -9,7 +9,7 @@ import WelcomeComponent from './WelcomeComponent'
 import ErrorComponent from './ErrorComponent'
 import LogoutComponent from './LogoutComponent'
 import QaComponent from './QaComponent'
-
+import RegistrationComponent from './RegistrationComponent'
 class StudyApp extends Component {
     render() {
         return (
@@ -20,6 +20,7 @@ class StudyApp extends Component {
                     <Switch>
                         <Route path="/" exact component={LoginComponent} />
                         <Route path="/login" component={LoginComponent} />
+                        <Route path="/register" component={RegistrationComponent} />
                         <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} />
                         <AuthenticatedRoute Route path="/studyapp/:id" component={QaComponent} />   
                         <AuthenticatedRoute path="/studyapp" component={ListStudyAppComponent} />

@@ -1,12 +1,19 @@
 import { Component } from "react"
 import QADataService from '../../api/study-app/QADataService'
 import AuthenticationService from './AuthenticationService'
-
-
+import {Grid, Paper, Avatar, TextField, Button, Typography, Link} from '@material-ui/core'
+import LockOutLinedIcon from '@material-ui/icons/LockOutlined'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank'
+import CheckBoxIcon from '@material-ui/icons/Favorite'
+import Favorite from '@material-ui/icons/Favorite'
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 
 class ListStudyAppComponent extends Component {
     constructor(props) {
-        super()
+        super(props)
+        console.log("ListStudyAppComponent.constructor")
         this.state = {
             QAs: [],
             message: null
@@ -18,7 +25,7 @@ class ListStudyAppComponent extends Component {
     }
 
     componentDidMount() {
-        console.log('componentDidMount')
+        console.log('ListStudyAppComponent.componentDidMount')
         this.refreshTodos()
         console.log(this.state)
     }
@@ -28,6 +35,7 @@ class ListStudyAppComponent extends Component {
         QADataService.retrieveAllQA(username)
             .then(
                 response => {
+                    console.log(`ListStudyAppComponent.refreshTodos response=${response.data}`)
                     this.setState({
                         QAs: response.data
                     })
@@ -37,7 +45,7 @@ class ListStudyAppComponent extends Component {
 
     deleteToDoClicked(id) {
         let username = AuthenticationService.getLoggedInUser()
-        console.log(id + " " + username)
+        console.log(`ListStudyAppComponent.deleteToDoClicked username=${username}`)
         QADataService.deleteQA(username, id)
             .then(
                 response => {
@@ -53,13 +61,22 @@ class ListStudyAppComponent extends Component {
     }
 
     addQAClicked() {
+        console.log("ListStudyAppComponent.addQAClicked")
         this.props.history.push(`/studyapp/-1`)
     }
 
     render() {
+        const paperStyle={padding: 50, height:'80vh', width:980, margin:'20px auto'}
+        const avatarStyle={backgroundColor:'#1bbd7e'}
+        const btnstyle={margin:'8px 0'}
         return (
+        <Grid>
+        <Paper elevation={10} style={paperStyle}>
+            <Grid align='center'>
+                <h2>Flash Card List</h2>
+            </Grid>
+        
             <div>
-                <h1>List Study App</h1>
                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
                 <div className="container">
                     <table className="table">
@@ -82,11 +99,13 @@ class ListStudyAppComponent extends Component {
                                         <td>{qa.answer}</td>
                                         <td>{qa.category}</td>
                                         <td>
+                                       
                                             <button className="btn btn-success"
-                                                onClick={() => this.updateToDoClicked(qa.qid)}
+                                            onClick={() => this.updateToDoClicked(qa.qid)}
                                             >
                                                 Update
                                             </button>
+        
                                         </td>
                                         <td>
                                             <button className="btn btn-warning"
@@ -104,8 +123,9 @@ class ListStudyAppComponent extends Component {
                           <button className="btn btn-success" onClick={this.addQAClicked}>Add</button>  
                     </div>
                 </div>
-            </div>  
-        )
+            </div>
+        </Paper>
+        </Grid>  )
     }
 }
 
