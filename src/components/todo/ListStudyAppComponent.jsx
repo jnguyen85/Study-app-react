@@ -66,7 +66,6 @@ class ListStudyAppComponent extends Component {
                         <thead>
                             <tr>
                                 <th>QId</th>
-                                <th>UserId</th>
                                 <th>question</th>
                                 <th>answer</th>
                                 <th>category</th>
@@ -79,7 +78,6 @@ class ListStudyAppComponent extends Component {
                                     qa => 
                                     <tr key={qa.qid}>
                                         <td> {qa.qid}</td>
-                                        <td>{qa.user_id}</td>
                                         <td>{qa.question}</td>
                                         <td>{qa.answer}</td>
                                         <td>{qa.category}</td>

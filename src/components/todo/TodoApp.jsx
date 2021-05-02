@@ -21,7 +21,7 @@ class StudyApp extends Component {
                         <Route path="/" exact component={LoginComponent} />
                         <Route path="/login" component={LoginComponent} />
                         <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} />
-                        <AuthenticatedRoute Route path="/studyapp/:id" component={QaComponent} />
+                        <AuthenticatedRoute Route path="/studyapp/:id" component={QaComponent} />   
                         <AuthenticatedRoute path="/studyapp" component={ListStudyAppComponent} />
                         <AuthenticatedRoute Route path="/logout" component={LogoutComponent} />
                         <Route component={ErrorComponent} />

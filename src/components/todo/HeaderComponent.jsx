@@ -6,6 +6,7 @@ import AuthenticationService from './AuthenticationService'
 
 class HeaderComponent extends Component {
     
+    
     render() {
         const isUserLogin = AuthenticationService.isUserLoggedIn()
         console.log(`is user login: ${isUserLogin}`)
@@ -16,6 +17,7 @@ class HeaderComponent extends Component {
                     <ul className="navbar-nav">
                         {isUserLogin && <li><Link className="nav-link" to="/welcome/John">Home</Link></li>}
                         {isUserLogin && <li><Link className="nav-link" to="/studyapp">Flash Card</Link></li>}
+                        <li><Link className="nav-link" to="/studyapp">Register</Link></li>
                     </ul>
                     <ul className="navbar-nav navbar-collapse justify-content-end">
                         {!isUserLogin && <li><Link className="nav-link" to="/login">Login</Link></li>}
@@ -24,7 +26,7 @@ class HeaderComponent extends Component {
                                 <Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link>
                             </li>
                         }
-                        </ul>
+                    </ul>
 
                 </nav>
             </header>

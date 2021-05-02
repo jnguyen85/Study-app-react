@@ -6,6 +6,7 @@ import AuthenticationService from './AuthenticationService'
 class TodoComponent extends Component {
     constructor(props) {
         super(props)
+        console.log("param id is: " + this.props.match.params.id)
         this.state = {
             Qid: this.props.match.params.id,
             user_id: 0,
@@ -64,7 +65,7 @@ class TodoComponent extends Component {
         let username = AuthenticationService.getLoggedInUser()
 
         let qa = {
-            Qid: this.state.Qid,
+            Qid: this.props.match.params.id,
             user_id: values.user_id,
             question: values.question,
             answer: values.answer,
@@ -72,9 +73,10 @@ class TodoComponent extends Component {
         }
         
         console.log("QA send to update/insert ", qa)
-        console.log("this.state.Qid=" + this.state.Qid)
-        if (this.state.Qid === -1) {
+        console.log("this.state.Qid=" + this.props.match.params.id)
+        if (this.props.match.params.id == -1) {
             QADataService.createQA(username, qa)
+                .then(() => this.props.history.push('/studyapp'))
         } else {
             QADataService.updateQA(username, this.state.Qid, qa)
                 .then(() => this.props.history.push('/studyapp'))

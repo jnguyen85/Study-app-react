@@ -26,6 +26,7 @@ class QADataService {
     }
 
     createQA(name, qa) {
+        console.log("inside createQa qa:" + qa)
         return axios.post(`http://localhost:8080/studyapp/users/1/qa/`, qa)
     }
     

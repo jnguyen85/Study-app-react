@@ -18,7 +18,7 @@ class LoginComponent extends Component {
     
 
     handleChange(e) {
-        console.log(e.target.value)
+        console.log(`inside handleChange(e) of LoginComponent ${e.target.value}` )
         this.setState(
             {
                 [e.target.name] : e.target.value
@@ -27,23 +27,19 @@ class LoginComponent extends Component {
     }
 
     loginClicked(e) {
-        // console.log(`{this.state.username} {this.state.password}`)
-        // if (this.state.username==='John' && this.state.password==='dummy') {
-        //     AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password)
-        //     this.props.history.push(`/welcome/${this.state.username}`)
-        // }
-        // else {
-        //     this.setState({
-        //         showSuccessMessage: false
-        //     })
-        //     this.setState({
-        //         hasLoginFailed: true
-        //     })
-        // }
+       
+        console.log(`about to call AuthenticationService.executeBasicAuthenticationService username:${this.state.username} password:${this.state.password}`)
         AuthenticationService.executeBasicAuthenticationService(this.state.username, this.state.password)
-            .then(() => {
+            .then((response) => {
+                console.log(`get response back from server>>>>response.data:` + response.data)
+                if (response.data === undefined || response.data === null || response.data.length === 0) {
+                    this.props.history.push(`/login`)
+                    this.setState({hasLoginFailed: true})
+                }
+                else {
                 AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password)
                     this.props.history.push(`/welcome/${this.state.username}`)
+                }
                 
             }).catch(() => {
                 this.setState({showSuccessMessage: false})
