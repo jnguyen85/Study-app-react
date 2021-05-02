@@ -33,8 +33,14 @@ class RegistrationComponent extends Component {
           user_pwd: this.state.user_pwd
         }
 
-        QADataService.registerUser(qa)
+        if (qa.user_email.length === 0 || qa.user_pwd.length === 0 || qa.user_fn.length === 0) {
+          return
+        } else {
+          QADataService.registerUser(qa)
           .then(() => this.props.history.push('/login'))
+        }
+
+        
 
       }
 
