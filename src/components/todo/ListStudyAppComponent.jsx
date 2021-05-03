@@ -1,14 +1,8 @@
 import { Component } from "react"
 import QADataService from '../../api/study-app/QADataService'
 import AuthenticationService from './AuthenticationService'
-import {Grid, Paper, Avatar, TextField, Button, Typography, Link} from '@material-ui/core'
-import LockOutLinedIcon from '@material-ui/icons/LockOutlined'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank'
-import CheckBoxIcon from '@material-ui/icons/Favorite'
-import Favorite from '@material-ui/icons/Favorite'
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
+import {Grid, Paper} from '@material-ui/core'
+
 
 class ListStudyAppComponent extends Component {
     constructor(props) {
@@ -67,8 +61,7 @@ class ListStudyAppComponent extends Component {
 
     render() {
         const paperStyle={padding: 50, height:'80vh', width:980, margin:'20px auto'}
-        const avatarStyle={backgroundColor:'#1bbd7e'}
-        const btnstyle={margin:'8px 0'}
+        
         return (
         <Grid>
         <Paper elevation={10} style={paperStyle}>
@@ -82,10 +75,9 @@ class ListStudyAppComponent extends Component {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>QId</th>
+                                <th>category</th>
                                 <th>question</th>
                                 <th>answer</th>
-                                <th>category</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,10 +86,9 @@ class ListStudyAppComponent extends Component {
                                 this.state.QAs.map(
                                     qa => 
                                     <tr key={qa.qid}>
-                                        <td> {qa.qid}</td>
+                                        <td>{qa.category}</td>
                                         <td>{qa.question}</td>
                                         <td>{qa.answer}</td>
-                                        <td>{qa.category}</td>
                                         <td>
                                        
                                             <button className="btn btn-success"

@@ -5,10 +5,7 @@ import {Grid, Paper, Avatar, TextField, Button, Typography, Link} from '@materia
 import LockOutLinedIcon from '@material-ui/icons/LockOutlined'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank'
-import CheckBoxIcon from '@material-ui/icons/Favorite'
-import Favorite from '@material-ui/icons/Favorite'
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
+
 
 class LoginComponent extends Component {
     constructor(props) {

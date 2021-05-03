@@ -17,6 +17,7 @@ class TodoComponent extends Component {
         }
         this.onSubmit = this.onSubmit.bind(this)
         this.validate = this.validate.bind(this)
+        this.decodeString = this.decodeString.bind(this)
     }
 
     componentDidMount() {
@@ -60,6 +61,12 @@ class TodoComponent extends Component {
             return errors
     }
 
+    decodeString(str) {
+        const textArea = document.createElement('textarea')
+        textArea.innerHTML = str;
+        return textArea.value
+      }
+
     onSubmit(values) {
         console.log("TodoComponent.onSubmit() is called: ")
 
@@ -68,9 +75,9 @@ class TodoComponent extends Component {
         const qa = {
             Qid: this.props.match.params.id,
             user_email: username,
-            question: values.question,
-            answer: values.answer,
-            category: values.category
+            question: this.decodeString(values.question),
+            answer: this.decodeString(values.answer),
+            category: this.decodeString(values.category)
         }
 
         console.log("TodoComponent.onSubmit qa.Qid=" + qa.Qid)

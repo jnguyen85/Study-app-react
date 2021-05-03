@@ -10,6 +10,10 @@ import ErrorComponent from './ErrorComponent'
 import LogoutComponent from './LogoutComponent'
 import QaComponent from './QaComponent'
 import RegistrationComponent from './RegistrationComponent'
+import FlashcardApp from './FlashcardApp'
+
+
+
 class StudyApp extends Component {
     render() {
         return (
@@ -25,6 +29,7 @@ class StudyApp extends Component {
                         <AuthenticatedRoute Route path="/studyapp/:id" component={QaComponent} />   
                         <AuthenticatedRoute path="/studyapp" component={ListStudyAppComponent} />
                         <AuthenticatedRoute Route path="/logout" component={LogoutComponent} />
+                        <AuthenticatedRoute Route path="/flash" component={FlashcardApp} />
                         <Route component={ErrorComponent} />
                     </Switch>
                     <FooterComponent></FooterComponent>
