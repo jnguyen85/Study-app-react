@@ -1,7 +1,7 @@
 import {Component} from 'react'
 import {Link} from 'react-router-dom'
 import HelloWorldService from '../../api/study-app/HelloWorldService.js'
-
+import flashimage from '../../images/flashcard.jpg'
 
 class WelcomeComponent extends Component {
 
@@ -20,16 +20,7 @@ class WelcomeComponent extends Component {
             <>
                 <h1>Welcome!</h1>
                 <div className="container">
-                    Welcome {this.props.match.params.name}. 
-                    You can manage your study app <Link to="/studyapp">here</Link>
-                </div>
-                <div className="container">
-                    Click here to get a customized welcome message
-                    <button onClick={this.retrieveWelcomeMessage} 
-                    className="btn btn-success">Get Welcome Message</button>
-                </div>
-                <div className="container">
-                    {this.state.welcomeMessage}
+                    <img src={flashimage} class="img-fluid" alt="flash card" width="800" height="50%"/>
                 </div>
             </>
         )
