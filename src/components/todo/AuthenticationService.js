@@ -1,10 +1,11 @@
 import axios from 'axios'
+import { API_URL, JPA_API_URL} from '../../APIRouterConstants'
 
 class AuthenticationService {
 
     executeBasicAuthenticationService(username, password) {
         console.log("AuthenticationService.executeBasicAuthenticationService:" + username + ":" + password)
-        return axios.post(`http://localhost:8080/studyapp/users/login/api/user`, 
+        return axios.post(`${API_URL}/users/login/api/user`, 
             {
                 user_email: username,
                 user_login: username,

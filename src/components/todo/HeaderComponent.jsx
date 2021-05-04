@@ -15,13 +15,13 @@ class HeaderComponent extends Component {
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
                     <div><a href="http://www.youtube.com" className="navbar-brand">Study App</a></div>
                     <ul className="navbar-nav">
-                        {isUserLogin && <li><Link className="nav-link" to="/welcome/John">Home</Link></li>} |
-                        {isUserLogin && <li><Link className="nav-link" to="/flash">Flash Card Quiz</Link></li>} |
-                        {isUserLogin && <li><Link className="nav-link" to="/studyapp">Maintain Your Flashcard</Link></li>} |
-                        {!isUserLogin && <li><Link className="nav-link" to="/register">Register</Link></li>} |
+                        {isUserLogin && <li><Link className="nav-link" to="/welcome/John">Home</Link></li>}
+                        {isUserLogin && <li><Link className="nav-link" to="/flash">Flash Card Quiz</Link></li>}
+                        {isUserLogin && <li><Link className="nav-link" to="/studyapp">Maintain Your Flashcard</Link></li>}
+                        {!isUserLogin && <li><Link className="nav-link" to="/register">Register</Link></li>}
                     </ul>
                     <ul className="navbar-nav navbar-collapse justify-content-end">
-                        {!isUserLogin && <li><Link className="nav-link" to="/login">Login</Link></li>} |
+                        {!isUserLogin && <li><Link className="nav-link" to="/login">Login</Link></li>}
                         {isUserLogin && 
                             <li>
                                 <Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link> |
