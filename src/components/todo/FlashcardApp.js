@@ -31,7 +31,8 @@ class FlashcardApp extends Component {
                 response => {
                     console.log(`FlashcardApp.refreshTodos response=${response.data}`)
                     this.setState({
-                        QAs: response.data
+                        QAs: response.data,
+                        selectedListOfCategory: response.data
                     })
                 }
             )
@@ -50,7 +51,7 @@ class FlashcardApp extends Component {
                 }
             })
             this.setState({
-                QAs: userSelectedListOfCategory
+                selectedListOfCategory: userSelectedListOfCategory
             })
         } else {
             this.refreshTodos()
@@ -76,7 +77,7 @@ class FlashcardApp extends Component {
                             }
                         </select>
                     </div>
-                    <FlashcardList flashcards={this.state.QAs}  />
+                    <FlashcardList flashcards={this.state.selectedListOfCategory}  />
                 </form>
                 
             </div>
