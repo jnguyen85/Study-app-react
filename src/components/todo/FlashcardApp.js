@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {Component} from 'react';
 import FlashcardList from './FlashcardList'
 import AuthenticationService from './AuthenticationService'
 import QADataService from '../../api/study-app/QADataService'
@@ -10,8 +10,11 @@ class FlashcardApp extends Component {
         super(props)
         this.state = {
             QAs: [],
-            message: null
+            message: '',
+            category: '',
+            selectedListOfCategory: []
         }
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
 
@@ -34,13 +37,48 @@ class FlashcardApp extends Component {
             )
     }
 
+    handleSubmit(e) {
+        console.log(e.target.value)
+        const selectedValue = e.target.value;
+        let userSelectedListOfCategory = []
+
+        if (selectedValue !== 'All') {
+            console.log("doesn't === All")
+            this.state.QAs.forEach((q) => {
+                if(q.category === selectedValue) {
+                    userSelectedListOfCategory.push(q)
+                }
+            })
+            this.setState({
+                QAs: userSelectedListOfCategory
+            })
+        } else {
+            this.refreshTodos()
+        }
+        e.preventDefault()
+    }
 
 
     render() {
         console.log(this.state.QAs)
         return (
-            <div className="container">
-                <FlashcardList flashcards={this.state.QAs} />
+            <div className="header" onSubmit={this.handleSubmit}>
+                <form>
+                    <div className="form-group">
+                        <label htmlFor="category">Category</label>
+                        <select id="category" name="category" onChange={this.handleSubmit}>
+                            <option value="All">All</option>
+                            {
+                                this.state.QAs.map(q => {
+                                    console.log("select element>>> option=" + q.category)
+                                    return <option value={q.category} key={q.category}>{q.category}</option>
+                                })
+                            }
+                        </select>
+                    </div>
+                    <FlashcardList flashcards={this.state.QAs}  />
+                </form>
+                
             </div>
         )
     }

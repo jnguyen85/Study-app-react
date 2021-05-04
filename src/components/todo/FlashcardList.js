@@ -7,7 +7,8 @@ export default function FlashcardList({flashcards}) {
         <div className="card-grid">
             {
                flashcards.map((q) => {
-                   return <Flashcard flashcard={q} />
+                   console.log(q)
+                   return <Flashcard flashcard={q} key={q.qid}/>
                })
             }
         </div>

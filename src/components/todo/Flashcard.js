@@ -1,6 +1,6 @@
 import React,  {useState} from 'react'
 
-export default function Flashcard({flashcard}) {
+export default function Flashcard({flashcard, category}) {
     const [flip, setFlip] = useState(false)
     return (
         <div
